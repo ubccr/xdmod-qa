@@ -2,13 +2,11 @@
     "name": "xdmod-qa",
     "version": "1.0.0",
     "description": "Scripts and other assets for testing Open XDMoD and Open XDMoD modules.",
-    "dependencies": {
-        "node": "^16.19.1"
-    },
+    "dependencies": {},
     "devDependencies": {
-        "eslint": "^8.46.0",
-        "eslint-config-airbnb-base": "^15.0.0",
-        "eslint-plugin-import": "^2.28.0",
+        "eslint": "^5.16.0",
+        "eslint-config-airbnb-base": "^13.2.0",
+        "eslint-plugin-import": "^2.25.0",
         "jsonlint": "^1.6.3",
         "lint-diff": "git+https://github.com/jpwhite4/lint-diff.git"
     },
