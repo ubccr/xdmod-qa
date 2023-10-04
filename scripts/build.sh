@@ -270,7 +270,14 @@ for file in "${js_files_changed[@]}" "${js_files_added[@]}"; do
     fi
 done
 for file in "${json_files_changed[@]}" "${json_files_added[@]}"; do
-    jsonlint --quiet "$file"
+    jsonlint="jsonlint --quiet"
+    # If the file is among the files used to generate the Jekyll static site,
+    # strip out any front matter before validating it.
+    if [[ "$file" =~ ^docs/* ]]; then
+        sed '1 { /^---/ { :a N; /\n---/! ba; d } }' $file | $jsonlint
+    else
+        $jsonlint "$file"
+    fi
     if [ $? != 0 ]; then
         syntax_exit_value=2
     fi
