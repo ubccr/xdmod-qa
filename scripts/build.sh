@@ -270,7 +270,7 @@ for file in "${js_files_changed[@]}" "${js_files_added[@]}"; do
     fi
 done
 for file in "${json_files_changed[@]}" "${json_files_added[@]}"; do
-    $qa_dir/vendor/bin/jsonlint --quiet "$file"
+    jsonlint --quiet "$file"
     if [ $? != 0 ]; then
         syntax_exit_value=2
     fi
