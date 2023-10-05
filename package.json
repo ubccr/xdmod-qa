@@ -2,9 +2,7 @@
     "name": "xdmod-qa",
     "version": "1.0.0",
     "description": "Scripts and other assets for testing Open XDMoD and Open XDMoD modules.",
-    "dependencies": {
-        "diff": "^5.1.0"
-    },
+    "dependencies": {},
     "devDependencies": {
         "eslint": "^8.2.0",
         "eslint-config-airbnb-base": "^15.0.0",
