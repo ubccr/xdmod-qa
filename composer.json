@@ -8,8 +8,9 @@
         "secure-http": false
     },
     "require-dev": {
-        "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
-        "sirbrillig/phpcs-variable-analysis": "^2.6"
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
+        "sirbrillig/phpcs-variable-analysis": "^2.6",
+        "seld/jsonlint": "^1.9.0"
     },
     "license": "LGPL-3.0",
     "authors": [
