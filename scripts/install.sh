@@ -3,6 +3,8 @@
 script_dir="$(cd "$(dirname $0)" || exit 2; pwd -P)"
 qa_dir="$(dirname "$script_dir")"
 
+export COMPOSER=composer-qa.json
+
 source "$script_dir/helpers.sh"
 
 # Check that this repo has been set up for Travis correctly and exit if not.

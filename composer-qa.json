@@ -1,0 +1,28 @@
+{
+    "name": "ubccr/xdmod-qa",
+    "description": "Scripts and other assets for testing Open XDMoD and Open XDMoD modules.",
+    "config": {
+        "platform": {
+            "php": "5.4.16"
+        },
+        "secure-http": false,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
+        "sirbrillig/phpcs-variable-analysis": "^2.6",
+        "seld/jsonlint": "^1.9.0"
+    },
+    "license": "LGPL-3.0",
+    "authors": [
+        {
+            "name": "The XDMoD Team",
+            "email": "ccr-xdmod-help@buffalo.edu"
+        }
+    ],
+    "require": {
+        "squizlabs/php_codesniffer": "^3.3"
+    }
+}
