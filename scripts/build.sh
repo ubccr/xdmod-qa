@@ -220,6 +220,15 @@ if [ -n "$remote_branch" ]; then
     done < <(git status -sz -uno)
 fi
 
+# Adjust ES6, Import and Strict Rules to 'warn' instead of 'error' until we decided what to keep.
+sed -i 's/error/warn/' "$qa_dir/node_modules/eslint-config-airbnb-base/rules/es6.js"
+sed -i 's/error/warn/' "$qa_dir/node_modules/eslint-config-airbnb-base/rules/imports.js"
+sed -i 's/error/warn/' "$qa_dir/node_modules/eslint-config-airbnb-base/rules/strict.js"
+
+# Set location of extended configuration rules due to a change in how ESLint looks for configuration files in version 6.0.0
+sed -i "s,\"extends\"\: \"airbnb-base\"\,,\"extends\"\: \"${qa_dir}\/node_modules\/eslint-config-airbnb-base\"\,," "$qa_dir/style/configs/.eslintrc.json"
+eslint_plugins="--resolve-plugins-relative-to ${qa_dir}/node_modules/eslint-plugin-import/"
+
 # Set up exit value for whole script and function for updating it.
 script_exit_value=0
 
@@ -255,13 +264,13 @@ for file in "${js_files_changed[@]}" "${js_files_added[@]}"; do
       eslint_args="-o $SHIPPABLE_BUILD_DIR/shipppable/testresults/xdmod-eslint-$(basename "$file").xml -f junit"
     fi
 
-    eslint "$file" $eslint_args
+    eslint "$file" $eslint_args $eslint_plugins
     if [ $? != 0 ]; then
         syntax_exit_value=2
     fi
 done
 for file in "${json_files_changed[@]}" "${json_files_added[@]}"; do
-    jsonlint --quiet --compact "$file"
+    jsonlint --quiet "$file"
     if [ $? != 0 ]; then
         syntax_exit_value=2
     fi
@@ -300,9 +309,9 @@ for file in "${php_files_added[@]}"; do
 done
 for file in "${js_files_changed[@]}"; do
     eslint_rule_override='{no-underscore-dangle: 0, indent: 0}'
-    eslint --rule "$eslint_rule_override" "$file" -f json > "$file.lint.new.json"
+    eslint $eslint_plugins --rule "$eslint_rule_override" "$file" -f json > "$file.lint.new.json"
     if [ $? != 0 ]; then
-        git show "$commit_range_start:$file" | eslint --rule "$eslint_rule_override" --stdin --stdin-filename "$file" -f json > "$file.lint.orig.json"
+        git show "$commit_range_start:$file" | eslint $eslint_plugins --rule "$eslint_rule_override" --stdin --stdin-filename "$file" -f json > "$file.lint.orig.json"
         lint-diff "$file.lint.orig.json" "$file.lint.new.json"
         if [ $? != 0 ]; then
             style_exit_value=2
@@ -312,7 +321,7 @@ for file in "${js_files_changed[@]}"; do
     rm "$file.lint.new.json"
 done
 for file in "${js_files_added[@]}"; do
-    eslint "$file"
+    eslint $eslint_plugins "$file"
     if [ $? != 0 ]; then
         style_exit_value=2
     fi
