@@ -5,7 +5,10 @@
         "platform": {
             "php": "5.4.16"
         },
-        "secure-http": false
+        "secure-http": false,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     },
     "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
