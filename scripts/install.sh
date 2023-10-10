@@ -20,7 +20,7 @@ pushd "$qa_dir" >/dev/null || exit 1
 echo "Installing dependencies for '$qa_dir' ..."
 
 echo "Installing Composer dependencies..."
-composer install -d "$qa_dir"
+composer install
 
 # Install repo's npm dependencies.
 echo "Installing npm dependencies..."
