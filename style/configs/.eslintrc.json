@@ -1,5 +1,5 @@
 {
-  "extends": "airbnb-base",
+  "extends": "/root/scratch/xdmod-qa/node_modules/eslint-config-airbnb-base",
   "env": {
     "browser": false,
     "node": false
@@ -107,6 +107,7 @@
         "props": false
       }
     ],
-    "yoda": "off"
+    "yoda": "off",
+    "comma-dangle": ["error", "never"]
   }
 }
