@@ -107,6 +107,7 @@
         "props": false
       }
     ],
-    "yoda": "off"
+    "yoda": "off",
+    "comma-dangle": ["error", "never"]
   }
 }
