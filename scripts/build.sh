@@ -398,10 +398,6 @@ unit_exit_value=0
 php_unit_test_path="tests/unit/runtests.sh"
 php_unit_test_args=""
 
-if [ "$repo_type" != "core" ]; then
-    php_unit_test_path="tests/unit_tests/runtests.sh"
-fi
-
 if [ -n "$SHIPPABLE_BUILD_DIR" ]; then
   php_unit_test_path="$SHIPPABLE_BUILD_DIR/tests/unit/runtests.sh"
   php_unit_test_args="--junit-output-dir $SHIPPABLE_BUILD_DIR/shippable/testresults"
