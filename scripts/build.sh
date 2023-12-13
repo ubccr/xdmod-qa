@@ -314,6 +314,22 @@ for file in "${php_files_added[@]}"; do
         style_exit_value=2
     fi
 done
+unique_php_files_changed=$(printf "%s\n" "${php_files_changed[@]}" "${php_files_added[@]}" | sort -u | tr '\n' ' ')
+for file in ${unique_php_files_changed[@]}; do
+    for test_type in {Unit,Component,Integration,Regression}; do
+        test_dir="$(tr '[:upper:]' '[:lower:]' <<< $test_type)"
+        if [[ "$file" =~ ^tests/$test_dir/lib/ ]]; then
+            expected_namespace="namespace $(dirname $file | sed "s/tests\/$test_dir\/lib/${test_type}Tests/" | sed 's/\//\\/g');"
+            actual_namespace="$(grep namespace $file)"
+            if [[ "$expected_namespace" != "$actual_namespace" ]]; then
+                echo -e "$file"
+                echo -e "\tExpected: $expected_namespace"
+                echo -e "\tActual: $actual_namespace"
+                style_exit_value=2
+            fi
+        fi
+    done
+done
 for file in "${js_files_changed[@]}"; do
     eslint_rule_override='{no-underscore-dangle: 0, indent: 0}'
     eslint $eslint_plugins --rule "$eslint_rule_override" "$file" -f json > "$file.lint.new.json"
