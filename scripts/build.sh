@@ -251,6 +251,7 @@ syntax_exit_value=0
 for file in "${php_files_changed[@]}" "${php_files_added[@]}"; do
     php -l "$file" >/dev/null
     if [ $? != 0 ]; then
+        echo "[ERROR] PHP Syntax error in $file"
         syntax_exit_value=2
     fi
 done
@@ -266,6 +267,7 @@ for file in "${js_files_changed[@]}" "${js_files_added[@]}"; do
 
     eslint "$file" $eslint_args $eslint_plugins
     if [ $? != 0 ]; then
+        echo "[ERROR] Javascript Syntax error in $file"
         syntax_exit_value=2
     fi
 done
@@ -279,6 +281,7 @@ for file in "${json_files_changed[@]}" "${json_files_added[@]}"; do
         $jsonlint "$file"
     fi
     if [ $? != 0 ]; then
+        echo "[ERROR] JSON Syntax error in $file"
         syntax_exit_value=2
     fi
 done
