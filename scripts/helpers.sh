@@ -13,7 +13,11 @@ repo_type="$("$script_dir/check-repo-type.sh" 2>/dev/null)"
 # Args:
 #     $1: An identifier for the foldable section.
 function start_travis_fold() {
-    echo "travis_fold:start:$1"
+    if [ -n "$CIRCLECI" ]; then
+        echo -e "$(tput setaf 3)━━ $1 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━$(tput sgr0)"
+    else
+        echo "travis_fold:start:$1"
+    fi
 }
 
 # End a foldable section of output in the Travis log.
@@ -21,7 +25,9 @@ function start_travis_fold() {
 # Args:
 #     $1: The identifier for the foldable section to end.
 function end_travis_fold() {
-    echo "travis_fold:end:$1"
+    if [ -z "$CIRCLECI" ]; then
+        echo "travis_fold:end:$1"
+    fi
 }
 
 # Print the results for a section of tests.
