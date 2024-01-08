@@ -256,7 +256,7 @@ for file in "${php_files_changed[@]}" "${php_files_added[@]}"; do
     fi
 done
 
-set +x
+set -x
 for file in "${js_files_changed[@]}" "${js_files_added[@]}"; do
 
     # If we are executing in a Shippable environment then we want to make sure that any output generated is
@@ -272,7 +272,7 @@ for file in "${js_files_changed[@]}" "${js_files_added[@]}"; do
         syntax_exit_value=2
     fi
 done
-set -x
+set +x
 
 for file in "${json_files_changed[@]}" "${json_files_added[@]}"; do
     jsonlint="jsonlint --quiet"
