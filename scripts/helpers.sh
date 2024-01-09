@@ -25,7 +25,9 @@ function start_travis_fold() {
 # Args:
 #     $1: The identifier for the foldable section to end.
 function end_travis_fold() {
-    if [ -z "$CIRCLECI" ]; then
+    if [ -n "$CIRCLECI" ]; then
+        echo -e "$(tput setaf 4)━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━$(tput sgr0)"
+    else
         echo "travis_fold:end:$1"
     fi
 }
