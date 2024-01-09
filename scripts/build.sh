@@ -452,7 +452,7 @@ build_exit_value=0
 
 echo "Building Open XDMoD..."
 build_package_path="$XDMOD_SOURCE_DIR/open_xdmod/build_scripts/build_package.php"
-"$build_package_path" --module xdmod
+"$build_package_path" --debug --module xdmod
 if [ $? != 0 ]; then
     build_exit_value=2
 fi
