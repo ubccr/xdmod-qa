@@ -257,14 +257,6 @@ for file in "${php_files_changed[@]}" "${php_files_added[@]}"; do
 done
 
 for file in "${js_files_changed[@]}" "${js_files_added[@]}"; do
-
-    # If we are executing in a Shippable environment then we want to make sure that any output generated is
-    # placed in the correct location.
-    eslint_args=""
-    if [ -n "$SHIPPABLE_BUILD_DIR" ]; then
-      eslint_args="-o $SHIPPABLE_BUILD_DIR/shipppable/testresults/xdmod-eslint-$(basename "$file").xml -f junit"
-    fi
-
     eslint "$file" $eslint_args $eslint_plugins
     if [ $? != 0 ]; then
         echo "[ERROR] Javascript Syntax error in $file"
