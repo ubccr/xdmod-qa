@@ -167,6 +167,7 @@ done
 php_files_added=()
 js_files_added=()
 json_files_added=()
+other_files_added=()
 while IFS= read -r -d $'\0' file; do
     if file $file | grep -q "text" ; then
         last_char=$(tail -c 1 "$file")
@@ -185,6 +186,8 @@ while IFS= read -r -d $'\0' file; do
         js_files_added+=("$file")
     elif [[ "$file" == *.json ]]; then
         json_files_added+=("$file")
+    else
+        other_files_added+=("$file")
     fi
 done < <(git -c diff.renameLimit=6000 diff --name-only --diff-filter=AR -z "$TRAVIS_COMMIT_RANGE")
 
@@ -378,7 +381,8 @@ if array_contains json_files_changed 'composer.json'; then
     python3 "$script_dir/composer_check.py"
 
     if [ $? != 0 ]; then
-        if ! array_contains other_files_changed 'composer.lock'; then
+        if ! array_contains other_files_changed 'composer.lock' && \
+           ! array_contains other_files_added 'composer.lock'; then
             echo "composer.json file changed, but no corresponding change to the lock file"
             extra_exit_value=2
         fi
