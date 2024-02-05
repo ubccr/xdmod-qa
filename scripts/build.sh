@@ -375,7 +375,7 @@ if array_contains json_files_changed 'composer.json'; then
     # determine whether or not `composer.json` has been changed. If the script
     # exits w/ a 0 then there has been no change. If it exits with anything
     # else then we need to make sure that `composer.lock` has been updated.
-    python "$script_dir/composer_check.py"
+    python3 "$script_dir/composer_check.py"
 
     if [ $? != 0 ]; then
         if ! array_contains other_files_changed 'composer.lock'; then
