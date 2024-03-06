@@ -297,7 +297,7 @@ style_exit_value=0
 for file in "${php_files_changed[@]}"; do
     phpcs "$file" --report=json > "$file.lint.new.json"
     if [ $? != 0 ]; then
-        git show "$commit_range_start:$file" | phpcs "$file" --report=json > "$file.lint.orig.json"
+        git show "$commit_range_start:$file" | phpcs --report=json --stdin-path="$file" - > "$file.lint.orig.json"
         lint-diff "$file.lint.orig.json" "$file.lint.new.json"
         if [ $? != 0 ]; then
             style_exit_value=2
