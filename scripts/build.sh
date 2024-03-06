@@ -302,9 +302,9 @@ for file in "${php_files_changed[@]}"; do
         if [ $? != 0 ]; then
             style_exit_value=2
         fi
-        rm "$file.lint.orig.json"
+        #rm "$file.lint.orig.json"
     fi
-    rm "$file.lint.new.json"
+    #rm "$file.lint.new.json"
 done
 for file in "${php_files_added[@]}"; do
     phpcs "$file"
