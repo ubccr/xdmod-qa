@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -x
 #
 # Perform travis tests. Use cases:
 #
