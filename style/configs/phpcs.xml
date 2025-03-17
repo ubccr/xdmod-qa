@@ -29,7 +29,7 @@
   </rule>
   <rule ref="VariableAnalysis">
     <properties>
-      <property name="validUnusedVariableNames" value="unused" />
+      <property name="validUnusedVariableNames" value="unused _coverage_dumper" />
       <property name="allowUnusedFunctionParameters" value="true" />
     </properties>
   </rule>
