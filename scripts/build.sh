@@ -365,7 +365,7 @@ for file in "${php_files_changed[@]}" "${js_files_changed[@]}" "${json_files_cha
     fi
 done
 
-if ! git diff --check $TRAVIS_COMMIT_RANGE ':(exclude)*.sql' ':(exclude)*.patch';
+if ! git diff --check $TRAVIS_COMMIT_RANGE ':(exclude)*.sql' ':(exclude)*.patch' ':(exclude)tests/artifacts/xdmod/regression/current/expected/reference/raw-data/**' ':(exclude)tests/artifacts/regression/current/expected/reference/raw-data/**';
 then
     echo "git diff --check failed"
     extra_exit_value=2
