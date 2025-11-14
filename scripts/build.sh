@@ -402,7 +402,7 @@ end_travis_fold extra
 print_section_results "Extra tests" $extra_exit_value
 
 if [ $only_style_tests -eq 1 ]; then
-    exit 0
+    exit $script_exit_value
 fi
 
 # Perform unit tests.
