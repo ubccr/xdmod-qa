@@ -318,11 +318,11 @@ for file in ${unique_php_files_changed[@]}; do
         test_dir="$(tr '[:upper:]' '[:lower:]' <<< $test_type)"
         if [[ "$file" =~ ^tests/$test_dir/lib/ ]]; then
             expected_namespace="namespace $(dirname $file | sed "s/tests\/$test_dir\/lib/${test_type}Tests/" | sed 's/\//\\/g');"
-            actual_namespace="$(grep namespace $file)"
+            actual_namespace="$(grep -e '^namespace.*;$' $file)"
             if [[ "$expected_namespace" != "$actual_namespace" ]]; then
                 echo -e "$file"
-                echo -e "\tExpected: $expected_namespace"
-                echo -e "\tActual: $actual_namespace"
+                echo -e "\tExpected: [$expected_namespace]"
+                echo -e "\tActual:   [$actual_namespace]"
                 style_exit_value=2
             fi
         fi
